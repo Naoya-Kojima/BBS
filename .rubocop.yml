@@ -1,0 +1,34 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+Rails:
+  Enabled: true
+
+AllCops:
+  TargetRubyVersion: 2.4.1
+  Exclude:
+    - vendor/**/*
+    - bin/*
+    - db/**/*
+    - config/**/*
+    - lib/**/*
+    - Gemfile
+
+# "Missing top-level class documentation comment."を無効
+Style/Documentation:
+  Enabled: false
+
+# "Prefer single-quoted strings when you don't need string interpolation or special symbols."を無効
+Style/StringLiterals:
+  Enabled: false
+
+# "Line is too long"を無効
+Metrics/LineLength:
+  Enabled: false
+
+# option 等、明示的にハッシュでも可
+Style/BracesAroundHashParameters:
+  Enabled: false
+
+Airbnb/OptArgParameters:
+  Enabled: false
