@@ -1,0 +1,13 @@
+<%= form_for(user) do |f| %>
+  <div class="field">
+    <%= f.label :名前 %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :性別 %>
+    <%= f.number_field :sex %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
