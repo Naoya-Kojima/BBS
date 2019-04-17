@@ -4,21 +4,24 @@
 
 <table>
   <thead>
-  <tr>
-  <th>名前</th>
-  <th>性別</th>
-  </tr>
+    <tr>
+      <th>名前</th>
+      <th>性別</th>
+    </tr>
   </thead>
-</table>
 
-<tbody>
-  <% @users.each do |user| %>
-    <td><%= user.name %></td>
-    <td><%= user.sex %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-  <% end %>
-</tbody>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.sex %></td>
+      <td><%= link_to 'Show', user %></td>
+      <td><%= link_to 'Edit', edit_user_path(user) %></td>
+      <td><%= link_to 'Destroy', user, method: :delete %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br>
 
