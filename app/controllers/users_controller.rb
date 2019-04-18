@@ -8,17 +8,15 @@ class UsersController < ApplicationController
   end
 
   def new
-    # モデルオブジェクトの生成
     @user = User.new
   end
 
   def create
-    # formのデータを受け取る
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user
+      redirect_to @user, notice: 'ユーザーの作成に成功しました。'
     else
-      render 'new'
+      render 'new', notice: 'ユーザーの作成に失敗しました。'
     end
   end
 
