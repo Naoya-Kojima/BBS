@@ -1,11 +1,11 @@
 <%= form_for(user) do |f| %>
   <div class="field">
-    <%= f.label :名前 %>
-    <%= f.text_field :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name, required:true %>
   </div>
   <div class="field">
-    <%= f.label :性別 %>
-    <%= f.number_field :sex %>
+    <%= f.label :sex %>
+    <%= f.select :sex, {male: 'male', female: 'female'}, required:true %>
   </div>
   <div class="actions">
     <%= f.submit %>
