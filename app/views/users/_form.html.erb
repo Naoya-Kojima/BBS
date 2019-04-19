@@ -1,12 +1,31 @@
 <%= form_for(user) do |f| %>
   <div class="field">
-    <%= f.label :name %>
+    <%= f.label :name %><br />
     <%= f.text_field :name, required:true %>
   </div>
+
   <div class="field">
-    <%= f.label :sex %>
+    <%= f.label :email %><br />
+    <%= f.text_field :email, required:true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, required:true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sex %><br />
     <%= f.select :sex, {male: 'male', female: 'female'}, required:true %>
   </div>
+
+  <br />
+
   <div class="actions">
     <%= f.submit %>
   </div>
