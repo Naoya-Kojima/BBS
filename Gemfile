@@ -35,6 +35,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'sorcery'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,7 +52,7 @@ group :development do
   gem 'rubocop-airbnb'
   gem "better_errors"
   gem "binding_of_caller"
-
+  gem 'rails_db'
 end
 
 

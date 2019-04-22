@@ -1,0 +1,13 @@
+<%= form_for(post) do |f| %>
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, required:true %>
+  </div>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.select :content, required:true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
