@@ -3,10 +3,12 @@
     <%= f.label :title %>
     <%= f.text_field :title, required:true %>
   </div>
-  <div class="field">
+
+  <div class="field" >
     <%= f.label :content %>
-    <%= f.select :content, required:true %>
+    <%= f.text_area :content, :size => "25x5", required:true %>
   </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

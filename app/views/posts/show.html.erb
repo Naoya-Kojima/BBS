@@ -1,0 +1,25 @@
+<p>
+  <strong>title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>content:</strong>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>post user:</strong>
+  <%= @post.user.name %>
+</p>
+
+<p>
+  <strong>sex:</strong>
+  <%= @post.user.sex %>
+</p>
+
+<% if logged_in? %>
+  <%= link_to 'Edit', edit_post_path(@post) %>
+<% end %>
+
+<%= link_to 'Back', posts_path %>
