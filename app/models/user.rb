@@ -6,5 +6,5 @@ class User < ApplicationRecord
   validates :password, presence: true, confirmation: true, length: { minimum: 4 }
   validates :password_confirmation, presence: true
   validates :sex, presence: true
-  enum sex: { male: 0, female: 1, unknown: 2 }
+  enum sex: { male: 0, female: 1 }
 end

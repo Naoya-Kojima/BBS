@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :require_login, only: [:new, :edit, :create, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.includes([:user])
   end
 
   def new
