@@ -1,0 +1,33 @@
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>title</th>
+      <th>contents</th>
+      <th>post user</th>
+      <th>sex</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.content %></td>
+        <td><%= post.user.name %></td>
+        <td><%= post.user.sex %></td>
+        <td><%= link_to 'Show', post %></td>
+        <% if logged_in? %>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to 'Destroy', post, method: :delete %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+<% if logged_in? %>
+  <%= link_to 'Create New Post', new_post_path %>
+<% end %>
