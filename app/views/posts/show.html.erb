@@ -49,8 +49,8 @@
     <%= comment.content %>
   </p>
 
-  <td><%#= link_to 'Edit', edit_post_comment_path(comment) %></td>
-  <td><%= link_to 'Destroy', comment, method: :delete %></td>
+  <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %></td>
+  <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete %></td>
 
   <hr>
 

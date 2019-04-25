@@ -1,13 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :set_post, only: [:show, :new, :create, :edit]
+  before_action :set_post
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @comment = Comment.new
-  end
-
   def show
-    @comment = Comment.find_by(post_id: @post.id)
   end
 
   def new
@@ -30,7 +25,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to comment_path, notice: 'コメントのアップデートが成功しました。'
+      redirect_to post_path(@post), notice: 'コメントのアップデートが成功しました。'
     else
       render 'edit', notice: 'コメントのアップデートが失敗しました。'
     end
