@@ -11,12 +11,12 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comments = @post.comments.all.order(id: "DESC").includes([:user])
   end
 
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-
     if @post.save
       redirect_to root_path, notice: '投稿に成功しました。'
     else
