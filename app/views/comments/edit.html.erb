@@ -1,6 +1,6 @@
 <h3>Edit Comment</h3>
 
-<%= form_for [@post, @comment], url: post_comment_path do |f| %>
+<%= form_for [@post, @comment] do |f| %>
   <p>
     <%= f.label :content %><br>
     <%= f.text_field :content, required:true %>
