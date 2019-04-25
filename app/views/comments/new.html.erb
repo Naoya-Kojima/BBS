@@ -1,0 +1,11 @@
+<h3>New Comment</h3>
+
+<%= form_for([@post, @comment]) do |f| %>
+  <p>
+    <%= f.label :content %><br>
+    <%= f.text_field :content, required:true %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

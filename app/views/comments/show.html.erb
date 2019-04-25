@@ -1,0 +1,24 @@
+<strong>Comments (<%= @comments.count %>)</strong><br>
+<hr>
+<% @comments.each do |comment| %>
+  <p>
+    <strong>user:</strong>
+    <%= comment.user.name %>
+  </p>
+
+  <p>
+    <strong>sex:</strong>
+    <%= comment.user.sex %>
+  </p>
+
+  <p>
+    <strong>comment:</strong>
+    <%= comment.content %>
+  </p>
+
+  <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
+  <td><%= link_to 'Destroy', comment, method: :delete %></td>
+
+  <hr>
+
+<% end %>
