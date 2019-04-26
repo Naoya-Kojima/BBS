@@ -17,7 +17,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to @user, notice: 'ユーザーの作成に成功しました。'
     else
-      render 'new', notice: 'ユーザーの作成に失敗しました。'
+      flash.now[:alert] = 'ユーザーの作成に失敗しました。'
+      render 'new'
     end
   end
 
@@ -28,7 +29,8 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path, notice: 'ユーザーのアップデートが成功しました。'
     else
-      render 'edit', notice: 'ユーザーのアップデートが失敗しました。'
+      flash.now[:alert] = 'ユーザーのアップデートが失敗しました。'
+      render 'edit'
     end
   end
 
@@ -36,7 +38,8 @@ class UsersController < ApplicationController
     if @user.destroy
       redirect_to users_path notice: 'ユーザーが削除されました。'
     else
-      render 'edit', notice: 'ユーザーの削除に失敗しました。'
+      flash.now[:alert] = 'ユーザーの削除に失敗しました。'
+      render 'edit'
     end
   end
 

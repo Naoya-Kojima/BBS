@@ -20,7 +20,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to root_path, notice: '投稿に成功しました。'
     else
-      render 'new', notice: '投稿に失敗しました。'
+      flash.now[:alert] = '投稿に失敗しました。'
+      render 'new'
     end
   end
 
@@ -31,7 +32,8 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to post_path, notice: '投稿のアップデートが成功しました。'
     else
-      render 'edit', notice: '投稿のアップデートが失敗しました。'
+      flash.now[:alert] = '投稿のアップデートが失敗しました。'
+      render 'edit'
     end
   end
 
@@ -39,7 +41,8 @@ class PostsController < ApplicationController
     if @post.destroy
       redirect_to posts_path notice: '投稿が削除されました。'
     else
-      render 'edit', notice: '投稿の削除に失敗しました。'
+      flash.now[:alert] = '投稿の削除に失敗しました。'
+      render 'edit'
     end
   end
 

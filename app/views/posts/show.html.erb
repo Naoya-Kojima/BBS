@@ -49,8 +49,16 @@
     <%= comment.content %>
   </p>
 
-  <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %></td>
-  <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete %></td>
+  <p>
+    <strong>created_at:</strong>
+    <%= comment.created_at %>
+  </p>
+
+
+  <% if logged_in? %>
+    <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %></td>
+    <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete %></td>
+  <% end %>
 
   <hr>
 
