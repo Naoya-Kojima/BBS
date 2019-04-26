@@ -61,5 +61,4 @@ class UsersController < ApplicationController
       redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
     end
   end
-
 end

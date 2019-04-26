@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all.includes([:user])
@@ -54,5 +55,12 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def correct_user
+    set_post
+    unless current_user == @post.user
+      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+    end
   end
 end
