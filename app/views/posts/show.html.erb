@@ -36,12 +36,20 @@
 <% @comments.each do |comment| %>
   <p>
     <strong>user:</strong>
-    <%= comment.user.name %>
+    <% if comment.user.present? %>
+      <%= comment.user.name %>
+    <% else %>
+      <%= "匿名ユーザー" %>
+    <% end %>
   </p>
 
   <p>
     <strong>sex:</strong>
-    <%= comment.user.sex %>
+    <% if comment.user.present? %>
+      <%= comment.user.sex %>
+    <% else %>
+      <%= "unknown" %>
+    <% end %>
   </p>
 
   <p>

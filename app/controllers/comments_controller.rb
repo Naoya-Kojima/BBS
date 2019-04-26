@@ -11,10 +11,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.build(comment_params)
-
-    if logged_in?
-      @comment.user_id = current_user.id
-    end
+    @comment.user_id = current_user.id if current_user
 
     if @comment.save
       redirect_to post_path(@post), notice: 'コメントの投稿に成功しました。'
