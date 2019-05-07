@@ -18,7 +18,7 @@
   <%= @post.user.sex %>
 </p>
 
-<% if logged_in? %>
+<% if current_user == @post.user %>
   <%= link_to 'Edit', edit_post_path(@post) %>
 <% end %>
 
