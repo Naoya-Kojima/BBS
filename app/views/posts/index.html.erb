@@ -18,7 +18,7 @@
         <td><%= post.user.name %></td>
         <td><%= post.user.sex %></td>
         <td><%= link_to 'Show', post %></td>
-        <% if logged_in? %>
+        <% if current_user == post.user %>
           <td><%= link_to 'Edit', edit_post_path(post) %></td>
           <td><%= link_to 'Destroy', post, method: :delete %></td>
         <% end %>

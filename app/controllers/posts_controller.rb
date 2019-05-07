@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :require_login, only: [:new, :edit, :create, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all.includes([:user])
@@ -20,7 +21,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to root_path, notice: '投稿に成功しました。'
     else
-      render 'new', notice: '投稿に失敗しました。'
+      flash.now[:alert] = '投稿に失敗しました。'
+      render 'new'
     end
   end
 
@@ -31,7 +33,8 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to post_path, notice: '投稿のアップデートが成功しました。'
     else
-      render 'edit', notice: '投稿のアップデートが失敗しました。'
+      flash.now[:alert] = '投稿のアップデートが失敗しました。'
+      render 'edit'
     end
   end
 
@@ -39,7 +42,8 @@ class PostsController < ApplicationController
     if @post.destroy
       redirect_to posts_path notice: '投稿が削除されました。'
     else
-      render 'edit', notice: '投稿の削除に失敗しました。'
+      flash.now[:alert] = '投稿の削除に失敗しました。'
+      render 'edit'
     end
   end
 
@@ -51,5 +55,12 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def correct_user
+    set_post
+    unless current_user == @post.user
+      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+    end
   end
 end

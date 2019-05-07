@@ -1,4 +1,13 @@
-<h1>Edit Comment</h1>
+<h3>Edit Comment</h3>
 
-<%#= render 'comments/form', comment: @comment %>
+<%= form_for [@post, @comment] do |f| %>
+  <p>
+    <%= f.label :content %><br>
+    <%= f.text_field :content, required:true %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
 <%= link_to 'Back', @post %>
