@@ -27,12 +27,12 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    is_posted_by_user?(@post.user)
+    is_not_posted_by_user?(@post.user)
   end
 
   def update
     @post = Post.find(params[:id])
-    is_posted_by_user?(@post.user)
+    is_not_posted_by_user?(@post.user)
     if @post.update(post_params)
       redirect_to post_path, notice: '投稿のアップデートが成功しました。'
     else
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    is_posted_by_user?(@post.user)
+    is_not_posted_by_user?(@post.user)
     if @post.destroy
       redirect_to posts_path notice: '投稿が削除されました。'
     else
@@ -58,7 +58,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content)
   end
 
-  def is_posted_by_user?(user)
+  def is_not_posted_by_user?(user)
     unless current_user == user
       redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
     end
