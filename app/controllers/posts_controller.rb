@@ -1,7 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all.includes([:user])
@@ -12,6 +10,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
     @comments = @post.comments.all.order(id: "DESC").includes([:user])
   end
 
@@ -27,9 +26,19 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
+    unless @post.is_posted_by_user?(current_user)
+      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+    end
   end
 
   def update
+    @post = Post.find(params[:id])
+
+    unless @post.is_posted_by_user?(current_user)
+      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+    end
+
     if @post.update(post_params)
       redirect_to post_path, notice: '投稿のアップデートが成功しました。'
     else
@@ -39,6 +48,12 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:id])
+
+    unless @post.is_posted_by_user?(current_user)
+      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+    end
+
     if @post.destroy
       redirect_to posts_path notice: '投稿が削除されました。'
     else
@@ -51,16 +66,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content)
-  end
-
-  def set_post
-    @post = Post.find(params[:id])
-  end
-
-  def correct_user
-    set_post
-    unless current_user == @post.user
-      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
-    end
   end
 end
