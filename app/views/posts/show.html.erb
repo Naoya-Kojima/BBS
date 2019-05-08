@@ -18,7 +18,7 @@
   <%= @post.user.sex %>
 </p>
 
-<% if posted_by_current_user(@post.user) %>
+<% if @post.is_posted_by_user?(current_user) %>
   <%= link_to 'Edit', edit_post_path(@post) %>
 <% end %>
 

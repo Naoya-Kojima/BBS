@@ -8,4 +8,8 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true
   validates :sex, presence: true
   enum sex: { male: 0, female: 1 }
+
+  def is_created_by_user?(user)
+    user.id == id
+  end
 end
