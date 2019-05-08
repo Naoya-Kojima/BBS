@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_login, only: [:index, :show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def new
@@ -25,9 +24,17 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    unless @user.is_created_by_user?(current_user)
+      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
+    end
   end
 
   def update
+    @user = User.find(params[:id])
+    unless @user.is_created_by_user?(current_user)
+      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
+    end
     if @user.update(user_params)
       redirect_to user_path, notice: 'ユーザーのアップデートが成功しました。'
     else
@@ -37,6 +44,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    @user = User.find(params[:id])
+    unless @user.is_created_by_user?(current_user)
+      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
+    end
     if @user.destroy
       redirect_to users_path notice: 'ユーザーが削除されました。'
     else
@@ -49,16 +60,5 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :sex)
-  end
-
-  def set_user
-    @user = User.find(params[:id])
-  end
-
-  def correct_user
-    set_user
-    unless current_user == @user
-      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
-    end
   end
 end
