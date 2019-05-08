@@ -1,14 +1,11 @@
 class Api::PostsController < ApplicationController
 
   def index
-    posts = Post.all
-    render json: posts
+    @posts = Post.all
   end
 
   def show
-    post = Post.find(params[:id])
-    # comments = post.comments.all.order(id: "DESC").includes([:user])
-    render json: post
+    @post = Post.find(params[:id])
   end
 
 end
