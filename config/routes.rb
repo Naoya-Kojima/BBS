@@ -6,9 +6,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   namespace :api, { format: 'json' } do
-    resources :posts do
-      resources :comments
-    end
+    resources :posts , only: [:index, :show]
   end
 
   get 'login' => 'user_sessions#new', as: :login
