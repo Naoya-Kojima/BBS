@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments
   end
+  namespace :api, { format: 'json' } do
+    resources :posts , only: [:index, :show]
+  end
 
   get 'login' => 'user_sessions#new', as: :login
   post 'logout' => 'user_sessions#destroy', as: :logout
