@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
   def show
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
@@ -26,11 +25,19 @@ class CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
+    unless @comment.is_commented_by_user?(current_user)
+      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+    end
   end
 
   def update
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
+
+    unless @comment.is_commented_by_user?(current_user)
+      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+    end
+
     if @comment.update(comment_params)
       redirect_to post_path(@post), notice: 'コメントのアップデートが成功しました。'
     else
@@ -42,6 +49,11 @@ class CommentsController < ApplicationController
   def destroy
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
+
+    unless @comment.is_commented_by_user?(current_user)
+      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+    end
+
     if @comment.destroy
       redirect_to post_path(@comment.post_id), notice: 'コメントが削除されました。'
     else
