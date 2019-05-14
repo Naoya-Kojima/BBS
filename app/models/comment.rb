@@ -3,17 +3,11 @@ class Comment < ApplicationRecord
   belongs_to :user, optional: true
   validates :content, presence: true
 
-  def is_commented_by_user?(user)
+  def can_be_edited_by_user?(user)
     if user.present?
-      user.id == user_id
+      (user.id == user_id) || ((post.user == user) && user_id.nil?)
     else
       false
     end
   end
-
-  def post_is_created_by_user?(user)
-    (post.user == user) && user_id.nil?
-  end
 end
-
-コメントのポスト作成ユーザーが一致

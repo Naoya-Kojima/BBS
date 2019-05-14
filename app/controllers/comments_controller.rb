@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
 
-    if !(@comment.is_commented_by_user?(current_user) || @comment.post_is_created_by_user?(current_user))
+    unless @comment.can_be_edited_by_user?(current_user)
       redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
     end
   end
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
 
-    if !(@comment.is_commented_by_user?(current_user) || @comment.post_is_created_by_user?(current_user))
+    unless @comment.can_be_edited_by_user?(current_user)
       redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
     end
 
@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
 
-    if !(@comment.is_commented_by_user?(current_user) || @comment.post_is_created_by_user?(current_user))
+    unless @comment.can_be_edited_by_user?(current_user)
       redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
     end
 
