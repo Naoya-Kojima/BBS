@@ -1,15 +1,16 @@
 class CommentsController < ApplicationController
-  before_action :set_post
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-
   def show
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
   end
 
   def new
+    @post = Post.find(params[:post_id])
     @comment = Comment.new
   end
 
   def create
+    @post = Post.find(params[:post_id])
     @comment = @post.comments.build(comment_params)
     @comment.user_id = current_user.id if current_user
 
@@ -22,9 +23,21 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+    unless @comment.is_commented_by_user?(current_user)
+      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+    end
   end
 
   def update
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+
+    unless @comment.is_commented_by_user?(current_user)
+      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+    end
+
     if @comment.update(comment_params)
       redirect_to post_path(@post), notice: 'コメントのアップデートが成功しました。'
     else
@@ -34,6 +47,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @post = Post.find(params[:post_id])
+    @comment = Comment.find(params[:id])
+
+    unless @comment.is_commented_by_user?(current_user)
+      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+    end
+
     if @comment.destroy
       redirect_to post_path(@comment.post_id), notice: 'コメントが削除されました。'
     else
@@ -46,13 +66,5 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
-  end
-
-  def set_comment
-    @comment = Comment.find(params[:id])
-  end
-
-  def set_post
-    @post = Post.find(params[:post_id])
   end
 end
