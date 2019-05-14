@@ -10,4 +10,8 @@ class Comment < ApplicationRecord
       false
     end
   end
+
+  def is_commented_by_post_user_or_anonymous?(user)
+    (post.user == user) && user_id.nil?
+  end
 end
