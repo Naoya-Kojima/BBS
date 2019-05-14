@@ -11,7 +11,9 @@ class Comment < ApplicationRecord
     end
   end
 
-  def is_commented_by_post_user_or_anonymous?(user)
+  def post_is_created_by_user?(user)
     (post.user == user) && user_id.nil?
   end
 end
+
+コメントのポスト作成ユーザーが一致
