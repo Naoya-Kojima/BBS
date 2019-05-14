@@ -3,11 +3,23 @@ class Comment < ApplicationRecord
   belongs_to :user, optional: true
   validates :content, presence: true
 
-  def can_be_edited_by_user?(user)
+  def is_commented_by_user?(user)
     if user.present?
-      (user.id == user_id) || ((post.user == user) && user_id.nil?)
+      user.id == user_id
     else
       false
+    end
+  end
+
+  def is_anonymous?
+    user_id.nil?
+  end
+
+  def can_be_edited_by_user?(user)
+    if is_commented_by_user?(user)
+      true
+    else
+      post.is_posted_by_user?(user) && is_anonymous?
     end
   end
 end
