@@ -25,7 +25,8 @@ class CommentsController < ApplicationController
   def edit
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
-    unless @comment.is_commented_by_user?(current_user)
+
+    unless @comment.can_be_edited_by_user?(current_user)
       redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
     end
   end
@@ -34,7 +35,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
 
-    unless @comment.is_commented_by_user?(current_user)
+    unless @comment.can_be_edited_by_user?(current_user)
       redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
     end
 
@@ -50,12 +51,12 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = Comment.find(params[:id])
 
-    unless @comment.is_commented_by_user?(current_user)
+    unless @comment.can_be_edited_by_user?(current_user)
       redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
     end
 
     if @comment.destroy
-      redirect_to post_path(@comment.post_id), notice: 'コメントが削除されました。'
+      redirect_to @post, notice: 'コメントが削除されました。'
     else
       flash.now[:alert] = "コメントの削除に失敗しました。"
       render 'edit'

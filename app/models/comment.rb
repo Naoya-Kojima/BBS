@@ -10,4 +10,16 @@ class Comment < ApplicationRecord
       false
     end
   end
+
+  def is_anonymous?
+    user_id.nil?
+  end
+
+  def can_be_edited_by_user?(user)
+    if is_commented_by_user?(user)
+      true
+    else
+      post.is_posted_by_user?(user) && is_anonymous?
+    end
+  end
 end
