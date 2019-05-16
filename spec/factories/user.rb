@@ -4,6 +4,6 @@ FactoryBot.define do
     email                 { Faker::Internet.safe_email }
     password              { 'password1234' }
     password_confirmation { 'password1234' }
-    sex                   { 0 }
+    sex                   { Faker::Number.within(0..1) }
   end
 end
