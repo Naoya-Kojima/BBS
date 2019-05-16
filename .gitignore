@@ -60,5 +60,6 @@ build-iPhoneSimulator/
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/*.sqlite3-journal
 
 # End of https://www.gitignore.io/api/ruby
