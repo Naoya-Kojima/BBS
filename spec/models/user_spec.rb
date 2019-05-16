@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   let(:user_1) { create(:user) }
   let(:user_2) { create(:user) }
 

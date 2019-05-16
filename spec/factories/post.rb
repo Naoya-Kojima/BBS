@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
-    title     { Faker::Nation.nationality }
-    content   { Faker::Nation.capital_city }
-    user_id   { Faker::Number.within(1..10) }
+    title     { "example_title" }
+    content   { "example_content" }
+    user_id   { 1 }
   end
 end
