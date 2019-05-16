@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :user do
-    name                  { Faker::Name.name }
-    email                 { Faker::Internet.safe_email }
+    name                  { 'Kerry Grant' }
+    email                 { 'kerry@example.com' }
     password              { 'password1234' }
     password_confirmation { 'password1234' }
-    sex                   { Faker::Number.within(0..1) }
+    sex                   { 0 }
   end
 end

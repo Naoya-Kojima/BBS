@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   let(:user_1) { create(:user) }
-  let(:user_2) { create(:user, name: "example_name_2") }
+  let(:user_2) { create(:user, name: 'Patrick Harvey', email: 'patrick@example.com') }
 
   describe '#is_posted_by_user?(user)' do
     context 'post作成者がログインユーザーと等しい場合' do
