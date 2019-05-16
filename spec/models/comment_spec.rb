@@ -7,7 +7,7 @@ RSpec.describe Comment, type: :model do
   let(:post_2) { create(:post, user_id: user_2.id) }
 
   describe '#is_commented_by_user?(user)' do
-    context 'comment作成者がログインユーザーと等しい場合' do
+    context 'コメントを作成したユーザーとログインユーザーが同じ場合' do
       let(:comment_1) { create(:comment, user_id: user_1.id, post_id: post_1.id) }
 
       it 'trueを返す' do
@@ -16,7 +16,7 @@ RSpec.describe Comment, type: :model do
       end
     end
 
-    context 'comment作成者がログインユーザーと違う場合' do
+    context 'コメントを作成したユーザーとログインユーザーが違う場合' do
       let(:comment_2) { create(:comment, user_id: user_2.id, post_id: post_2.id) }
 
       it 'falseを返す' do
@@ -27,34 +27,42 @@ RSpec.describe Comment, type: :model do
   end
 
   describe '#is_anonymous?' do
-    context 'comment作成者が匿名ユーザー場合' do
+    context 'comment作成者が匿名ユーザーの場合' do
       let(:comment_3) { create(:comment, user_id: nil, post_id: post_1.id) }
 
-      it 'commentのuser_idがnil' do
+      it 'commentが匿名である' do
         expect(comment_3.is_anonymous?).to eq true
+      end
+    end
+
+    context 'comment作成者が匿名ユーザーではない場合' do
+      let(:comment_4) { create(:comment, user_id: user_2.id, post_id: post_1.id) }
+
+      it 'commentが匿名でない' do
+        expect(comment_4.is_anonymous?).to eq false
       end
     end
   end
 
   describe '#can_be_edited_by_user?(user)' do
-    context '#is_commented_by_user?(user)がtrueの場合' do
+    context 'コメントを作成したユーザーとログインユーザーが同じ場合' do
       it 'trueを返す' do
         true
       end
     end
 
-    context '#is_commented_by_user?(user)がfalseの場合' do
-      let(:comment_4) { create(:comment, user_id: nil, post_id: post_1.id) }
-      let(:comment_5) { create(:comment, user_id: user_1.id, post_id: post_1.id) }
+    context 'コメントを作成したユーザーとログインユーザーが違う場合' do
+      let(:comment_5) { create(:comment, user_id: nil, post_id: post_1.id) }
+      let(:comment_6) { create(:comment, user_id: user_1.id, post_id: post_1.id) }
 
-      it 'post.is_posted_by_user?(user) && is_anonymous?がtrue' do
+      it 'ポストを作成したユーザとログインユーザーが同じであり、かつ匿名コメントである場合' do
         login_user = User.find(user_1.id)
-        expect(post_1.is_posted_by_user?(login_user) && comment_4.is_anonymous?).to eq true
+        expect(post_1.is_posted_by_user?(login_user) && comment_5.is_anonymous?).to eq true
       end
 
-      it 'post.is_posted_by_user?(user) && is_anonymous?がfalse' do
+      it 'ポストを作成したユーザとログインユーザーが同じでなく、かつ匿名コメントでない場合' do
         login_user = User.find(user_1.id)
-        expect(post_2.is_posted_by_user?(login_user) && comment_5.is_anonymous?).to eq false
+        expect(post_2.is_posted_by_user?(login_user) && comment_6.is_anonymous?).to eq false
       end
     end
   end
