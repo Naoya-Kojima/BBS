@@ -45,24 +45,21 @@ RSpec.describe Comment, type: :model do
   end
 
   describe '#can_be_edited_by_user?(user)' do
-    context 'コメントを作成したユーザーとログインユーザーが同じ場合' do
+    context 'ログインユーザーがコメントを編集できる場合' do
+      let(:comment_5) { create(:comment, user_id: nil, post_id: post_1.id) }
+
       it 'trueを返す' do
-        true
+        login_user = User.find(user_1.id)
+        expect(comment_5.can_be_edited_by_user?(login_user)).to eq true
       end
     end
 
-    context 'コメントを作成したユーザーとログインユーザーが違う場合' do
-      let(:comment_5) { create(:comment, user_id: nil, post_id: post_1.id) }
-      let(:comment_6) { create(:comment, user_id: user_1.id, post_id: post_1.id) }
+    context 'ログインユーザがコメントを編集できない場合' do
+      let(:comment_6) { create(:comment, user_id: nil, post_id: post_2.id) }
 
-      it 'ポストを作成したユーザとログインユーザーが同じであり、かつ匿名コメントである場合' do
+      it 'falseを返す' do
         login_user = User.find(user_1.id)
-        expect(post_1.is_posted_by_user?(login_user) && comment_5.is_anonymous?).to eq true
-      end
-
-      it 'ポストを作成したユーザとログインユーザーが同じでなく、かつ匿名コメントでない場合' do
-        login_user = User.find(user_1.id)
-        expect(post_2.is_posted_by_user?(login_user) && comment_6.is_anonymous?).to eq false
+        expect(comment_6.can_be_edited_by_user?(login_user)).to eq false
       end
     end
   end
