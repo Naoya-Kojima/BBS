@@ -1,9 +1,7 @@
-<%= form_for(comment) do |f| %>
-  <p>
+<%= form_for([post, comment]) do |f| %>
+  <div class="form-group">
     <%= f.label :content %><br>
-    <%= f.text_field :content, required:true %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+    <%= f.text_field :content, class: "form-control", rows: "3", required:true %>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 <% end %>

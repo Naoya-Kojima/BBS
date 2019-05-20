@@ -1,34 +1,37 @@
-<p>
-  <strong>title:</strong>
-  <%= @post.title %>
-</p>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>content</th>
+        <th>post user</th>
+        <th>sex</th>
+      </tr>
+    </thead>
 
-<p>
-  <strong>content:</strong>
-  <%= @post.content %>
-</p>
-
-<p>
-  <strong>post user:</strong>
-  <%= @post.user.name %>
-</p>
-
-<p>
-  <strong>sex:</strong>
-  <%= @post.user.sex %>
-</p>
+    <tbody>
+        <tr>
+          <td><%= @post.title %></td>
+          <td><%= @post.content %></td>
+          <td><%= @post.user.name %></td>
+          <td><%= @post.user.sex %></td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 
 <% if @post.is_posted_by_user?(current_user) %>
-  <%= link_to 'Edit', edit_post_path(@post) %>
+  <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary btn-sm' %>
 <% end %>
 
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Back', posts_path, class: 'btn btn-primary btn-sm' %>
 
 <br>
 <br>
 
-<%= link_to 'Create New Comment', new_post_comment_path(@post) %>
+<%= link_to 'Create New Comment', new_post_comment_path(@post), class: 'btn btn-primary' %>
 
+<br>
 <br>
 
 <strong>Comments (<%= @comments.count %>)</strong><br>
@@ -63,8 +66,8 @@
   </p>
 
   <% if comment.can_be_edited_by_user?(current_user) %>
-    <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %></td>
-    <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete %></td>
+    <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment), class: 'btn btn-secondary btn-sm' %></td>
+    <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete, class: 'btn btn-danger btn-sm' %></td>
   <% end %>
 
   <hr>

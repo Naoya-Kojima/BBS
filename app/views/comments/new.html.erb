@@ -1,13 +1,5 @@
 <h3>New Comment</h3>
 
-<%= form_for([@post, @comment]) do |f| %>
-  <p>
-    <%= f.label :content %><br>
-    <%= f.text_field :content, required:true %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
-
-<%= link_to 'Back', @post %>
+<%= render 'form', post: @post, comment: @comment %>
+<br>
+<%= link_to 'Back', @post, class: 'btn btn-primary btn-sm' %>
