@@ -1,5 +1,10 @@
 <h1>Posts</h1>
-
+<br>
+<% if logged_in? %>
+  <%= link_to "Create New Post", new_post_path, class: 'btn btn-primary' %>
+<% end %>
+<br>
+<br>
 <table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
@@ -16,7 +21,11 @@
         <td><%= link_to "#{post.title}", post %></td>
         <td><%= post.content %></td>
         <td><%= post.user.name %></td>
-        <td><%= post.user.sex %></td>
+        <% if post.user.sex == 'male' %>
+          <td><span class="badge badge-pill badge-primary"><%= post.user.sex %></span></td>
+        <% else %>
+          <td><span class="badge badge-pill badge-danger"><%= post.user.sex %></span></td>
+        <% end %>
         <td><%= link_to 'Show', post, class: 'btn btn-primary' %></td>
         <% if post.is_posted_by_user?(current_user) %>
           <td><%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary' %></td>
@@ -26,7 +35,3 @@
     <% end %>
   </tbody>
 </table>
-
-<% if logged_in? %>
-  <%= link_to "Create New Post", new_post_path, class: 'btn btn-primary' %>
-<% end %>

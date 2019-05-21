@@ -16,9 +16,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to login_path, notice: 'ユーザーの作成に成功しました。'
+      flash[:success] = 'ユーザーの作成に成功しました。'
+      redirect_to login_path
     else
-      flash.now[:alert] = 'ユーザーの作成に失敗しました。'
+      flash[:warning] = 'ユーザーの作成に失敗しました。'
       render 'new'
     end
   end
@@ -26,19 +27,22 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     unless @user.is_created_by_user?(current_user)
-      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
+      flash[:danger] = '他のユーザーの情報は編集できません。'
+      redirect_to users_path
     end
   end
 
   def update
     @user = User.find(params[:id])
     unless @user.is_created_by_user?(current_user)
-      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
+      flash[:danger] = '他のユーザーの情報は編集できません。'
+      redirect_to users_path
     end
     if @user.update(user_params)
-      redirect_to user_path, notice: 'ユーザーのアップデートが成功しました。'
+      flash[:success] = 'ユーザーのアップデートが成功しました。'
+      redirect_to user_path
     else
-      flash.now[:alert] = 'ユーザーのアップデートが失敗しました。'
+      flash[:warning] = 'ユーザーのアップデートが失敗しました。'
       render 'edit'
     end
   end
@@ -46,12 +50,14 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     unless @user.is_created_by_user?(current_user)
-      redirect_to users_path, alert: '他のユーザーの情報は編集できません。'
+      flash[:danger] = '他のユーザーの情報は編集できません。'
+      redirect_to users_path
     end
     if @user.destroy
-      redirect_to users_path notice: 'ユーザーが削除されました。'
+      flash[:success] = 'ユーザーが削除されました。'
+      redirect_to users_path
     else
-      flash.now[:alert] = 'ユーザーの削除に失敗しました。'
+      flash[:warning] = 'ユーザーの削除に失敗しました。'
       render 'edit'
     end
   end

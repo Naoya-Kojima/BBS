@@ -12,7 +12,11 @@
         <tr>
           <td><%= @user.name %></td>
           <td><%= @user.email %></td>
-          <td><%= @user.sex %></td>
+          <% if @user.sex == 'male' %>
+            <td><span class="badge badge-pill badge-primary"><%= @user.sex %></span></td>
+          <% else %>
+            <td><span class="badge badge-pill badge-danger"><%= @user.sex %></span></td>
+          <% end %>
         </tr>
     </tbody>
   </table>

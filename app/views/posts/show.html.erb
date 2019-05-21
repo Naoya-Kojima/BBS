@@ -14,7 +14,11 @@
           <td><%= @post.title %></td>
           <td><%= @post.content %></td>
           <td><%= @post.user.name %></td>
-          <td><%= @post.user.sex %></td>
+          <% if @post.user.sex == 'male' %>
+            <td><span class="badge badge-pill badge-primary"><%= @post.user.sex %></span></td>
+          <% else %>
+            <td><span class="badge badge-pill badge-danger"><%= @post.user.sex %></span></td>
+          <% end %>
         </tr>
     </tbody>
   </table>
@@ -49,9 +53,13 @@
   <p>
     <strong>sex:</strong>
     <% if comment.user.present? %>
-      <%= comment.user.sex %>
+      <% if comment.user.sex == 'male' %>
+        <span class="badge badge-pill badge-primary"><%= comment.user.sex %></span>
+      <% else %>
+        <span class="badge badge-pill badge-danger"><%= comment.user.sex %></span>
+      <% end %>
     <% else %>
-      <%= "unknown" %>
+      <span class="badge badge-pill badge-secondary"><%= "unknown" %></span>
     <% end %>
   </p>
 

@@ -18,9 +18,10 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      redirect_to root_path, notice: '投稿に成功しました。'
+      flash[:success] = '投稿に成功しました。'
+      redirect_to root_path
     else
-      flash.now[:alert] = '投稿に失敗しました。'
+      flash[:warning] = '投稿に失敗しました。'
       render 'new'
     end
   end
@@ -28,7 +29,8 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     unless @post.is_posted_by_user?(current_user)
-      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+      flash[:danger] = '他のユーザーの投稿は編集できません。'
+      redirect_to posts_path
     end
   end
 
@@ -36,13 +38,15 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     unless @post.is_posted_by_user?(current_user)
-      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+      flash[:danger] = '他のユーザーの投稿は編集できません。'
+      redirect_to posts_path
     end
 
     if @post.update(post_params)
-      redirect_to post_path, notice: '投稿のアップデートが成功しました。'
+      flash[:success] = '投稿のアップデートが成功しました。'
+      redirect_to post_path
     else
-      flash.now[:alert] = '投稿のアップデートが失敗しました。'
+      flash[:warning] = '投稿のアップデートが失敗しました。'
       render 'edit'
     end
   end
@@ -51,13 +55,15 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     unless @post.is_posted_by_user?(current_user)
-      redirect_to posts_path, alert: '他のユーザーの投稿は編集できません。'
+      flash[:danger] = '他のユーザーの投稿は編集できません。'
+      redirect_to posts_path
     end
 
     if @post.destroy
-      redirect_to posts_path notice: '投稿が削除されました。'
+      flash[:success] = '投稿が削除されました。'
+      redirect_to posts_path
     else
-      flash.now[:alert] = '投稿の削除に失敗しました。'
+      flash[:warning] = '投稿の削除に失敗しました。'
       render 'edit'
     end
   end
