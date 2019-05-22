@@ -24,21 +24,17 @@
   </table>
 </div>
 
-<% if @post.is_posted_by_user?(current_user) %>
-  <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary btn-sm' %>
-<% end %>
+<div class="mb1">
+  <% if @post.is_posted_by_user?(current_user) %>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary btn-sm' %>
+  <% end %>
+  <%= link_to 'Back', posts_path, class: 'btn btn-primary btn-sm' %>
+</div>
+<div class="mb1">
+  <%= link_to 'Create New Comment', new_post_comment_path(@post), class: 'btn btn-primary' %>
+</div>
 
-<%= link_to 'Back', posts_path, class: 'btn btn-primary btn-sm' %>
-
-<br>
-<br>
-
-<%= link_to 'Create New Comment', new_post_comment_path(@post), class: 'btn btn-primary' %>
-
-<br>
-<br>
-
-<strong>Comments (<%= @comments.count %>)</strong><br>
+<strong>Comments (<%= @comments.count %>)</strong>
 <hr>
 <% @comments.each do |comment| %>
   <p>
