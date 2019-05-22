@@ -21,7 +21,7 @@
         <td><%= link_to "#{post.title}", post %></td>
         <td><%= post.content %></td>
         <td><%= post.user.name %></td>
-        <% if post.user.sex == 'male' %>
+        <% if post.user.male? %>
           <td><span class="badge badge-pill badge-primary"><%= post.user.sex %></span></td>
         <% else %>
           <td><span class="badge badge-pill badge-danger"><%= post.user.sex %></span></td>
