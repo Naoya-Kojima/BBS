@@ -30,6 +30,9 @@
         <% if post.is_posted_by_user?(current_user) %>
           <td><%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary' %></td>
           <td><%= link_to 'Destroy', post, method: :delete, class: 'btn btn-danger' %></td>
+        <% else %>
+          <td></td>
+          <td></td>
         <% end %>
       </tr>
     <% end %>
