@@ -1,37 +1,40 @@
-<p>
-  <strong>title:</strong>
-  <%= @post.title %>
-</p>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>content</th>
+        <th>post user</th>
+        <th>sex</th>
+      </tr>
+    </thead>
 
-<p>
-  <strong>content:</strong>
-  <%= @post.content %>
-</p>
+    <tbody>
+        <tr>
+          <td><%= @post.title %></td>
+          <td><%= @post.content %></td>
+          <td><%= @post.user.name %></td>
+          <% if @post.user.male? %>
+            <td><span class="badge badge-pill badge-primary"><%= @post.user.sex %></span></td>
+          <% else %>
+            <td><span class="badge badge-pill badge-danger"><%= @post.user.sex %></span></td>
+          <% end %>
+        </tr>
+    </tbody>
+  </table>
+</div>
 
-<p>
-  <strong>post user:</strong>
-  <%= @post.user.name %>
-</p>
+<div class="mb1">
+  <% if @post.is_posted_by_user?(current_user) %>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-secondary btn-sm' %>
+  <% end %>
+  <%= link_to 'Back', posts_path, class: 'btn btn-primary btn-sm' %>
+</div>
+<div class="mb1">
+  <%= link_to 'Create New Comment', new_post_comment_path(@post), class: 'btn btn-primary' %>
+</div>
 
-<p>
-  <strong>sex:</strong>
-  <%= @post.user.sex %>
-</p>
-
-<% if @post.is_posted_by_user?(current_user) %>
-  <%= link_to 'Edit', edit_post_path(@post) %>
-<% end %>
-
-<%= link_to 'Back', posts_path %>
-
-<br>
-<br>
-
-<%= link_to 'Create New Comment', new_post_comment_path(@post) %>
-
-<br>
-
-<strong>Comments (<%= @comments.count %>)</strong><br>
+<strong>Comments (<%= @comments.count %>)</strong>
 <hr>
 <% @comments.each do |comment| %>
   <p>
@@ -46,9 +49,13 @@
   <p>
     <strong>sex:</strong>
     <% if comment.user.present? %>
-      <%= comment.user.sex %>
+      <% if comment.user.male? %>
+        <span class="badge badge-pill badge-primary"><%= comment.user.sex %></span>
+      <% else %>
+        <span class="badge badge-pill badge-danger"><%= comment.user.sex %></span>
+      <% end %>
     <% else %>
-      <%= "unknown" %>
+      <span class="badge badge-pill badge-secondary"><%= "unknown" %></span>
     <% end %>
   </p>
 
@@ -63,8 +70,8 @@
   </p>
 
   <% if comment.can_be_edited_by_user?(current_user) %>
-    <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment) %></td>
-    <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete %></td>
+    <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment), class: 'btn btn-secondary btn-sm' %></td>
+    <td><%= link_to 'Destroy', post_comment_path(comment.post, comment), method: :delete, class: 'btn btn-danger btn-sm' %></td>
   <% end %>
 
   <hr>

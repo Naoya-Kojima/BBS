@@ -1,32 +1,30 @@
 <%= form_for(user) do |f| %>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br />
-    <%= f.text_field :name, required:true %>
+    <%= f.text_field :name, class: "form-control", required:true %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :email %><br />
-    <%= f.text_field :email, required:true %>
+    <%= f.text_field :email, class: "form-control", required:true %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
+  <div class="form-group">
+    <%= f.label :password %><br>
     <%= f.password_field :password, required:true %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
+  <div class="form-group">
+    <%= f.label :password_confirmation %><br>
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <div class="field">
-    <%= f.label :sex %><br />
-    <%= f.select :sex, {male: 'male', female: 'female'}, required:true %>
+  <div class="form-group">
+    <%= f.label :sex, for: "exampleFormControlSelect1" %><br>
+    <%= f.select :sex, {male: 'male', female: 'female'}, {}, class: "form-control", required:true %>
   </div>
 
-  <br />
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 <% end %>

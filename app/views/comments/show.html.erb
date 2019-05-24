@@ -1,24 +1,19 @@
-<strong>Comments (<%= @comments.count %>)</strong><br>
-<hr>
-<% @comments.each do |comment| %>
+<% if @comment.user.present? %>
   <p>
     <strong>user:</strong>
-    <%= comment.user.name %>
+    <%= @comment.user.name %>
   </p>
-
   <p>
     <strong>sex:</strong>
-    <%= comment.user.sex %>
+    <%= @comment.user.sex %>
   </p>
-
-  <p>
-    <strong>comment:</strong>
-    <%= comment.content %>
-  </p>
-
-  <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-  <td><%= link_to 'Destroy', comment, method: :delete %></td>
-
-  <hr>
-
 <% end %>
+
+<p>
+  <strong>comment:</strong>
+  <%= @comment.content %>
+</p>
+
+<%= link_to 'Back', @post, class: 'btn btn-primary btn-sm' %>
+<%= link_to 'Edit', edit_post_comment_path(@comment.post, @comment), class: 'btn btn-primary btn-sm' %>
+<%= link_to 'Destroy', post_comment_path(@comment.post, @comment), method: :delete, class: 'btn btn-primary btn-sm' %>

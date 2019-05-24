@@ -15,9 +15,10 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id if current_user
 
     if @comment.save
-      redirect_to post_path(@post), notice: 'コメントの投稿に成功しました。'
+      flash[:success] = 'コメントの投稿に成功しました。'
+      redirect_to post_path(@post)
     else
-      flash.now[:alert] = "コメントの投稿に失敗しました。"
+      flash[:warning] = 'コメントの投稿に失敗しました。'
       render 'new'
     end
   end
@@ -27,7 +28,8 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     unless @comment.can_be_edited_by_user?(current_user)
-      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+      flash[:danger] = '他のユーザーのコメントは編集できません。'
+      redirect_to @post
     end
   end
 
@@ -36,13 +38,15 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     unless @comment.can_be_edited_by_user?(current_user)
-      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+      flash[:danger] = '他のユーザーのコメントは編集できません。'
+      redirect_to @post
     end
 
     if @comment.update(comment_params)
-      redirect_to post_path(@post), notice: 'コメントのアップデートが成功しました。'
+      flash[:success] = 'コメントのアップデートが成功しました。'
+      redirect_to post_path(@post)
     else
-      flash.now[:alert] = "コメントのアップデートが失敗しました。"
+      flash[:warning] = 'コメントのアップデートが失敗しました。'
       render 'edit'
     end
   end
@@ -52,13 +56,14 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
 
     unless @comment.can_be_edited_by_user?(current_user)
-      redirect_to @post, alert: '他のユーザーのコメントは編集できません。'
+      flash[:danger] = '他のユーザーのコメントは編集できません。'
+      redirect_to @post
     end
 
     if @comment.destroy
       redirect_to @post, notice: 'コメントが削除されました。'
     else
-      flash.now[:alert] = "コメントの削除に失敗しました。"
+      flash[:warning] = 'コメントの削除に失敗しました。'
       render 'edit'
     end
   end

@@ -1,6 +1,10 @@
-<h1>Posts</h1>
-
-<table>
+<div class="mb-3">
+  <h1>Posts</h1>
+  <% if logged_in? %>
+    <%= link_to "Create New Post", new_post_path, class: 'btn btn-primary' %>
+  <% end %>
+</div>
+<table class="table table-striped table-bordered table-hover">
   <thead>
     <tr>
       <th>title</th>
@@ -16,18 +20,20 @@
         <td><%= link_to "#{post.title}", post %></td>
         <td><%= post.content %></td>
         <td><%= post.user.name %></td>
-        <td><%= post.user.sex %></td>
-        <td><%= link_to 'Show', post %></td>
+        <% if post.user.male? %>
+          <td><span class="badge badge-pill badge-primary"><%= post.user.sex %></span></td>
+        <% else %>
+          <td><span class="badge badge-pill badge-danger"><%= post.user.sex %></span></td>
+        <% end %>
+        <td><%= link_to 'Show', post, class: 'btn btn-primary' %></td>
         <% if post.is_posted_by_user?(current_user) %>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to 'Destroy', post, method: :delete %></td>
+          <td><%= link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary' %></td>
+          <td><%= link_to 'Destroy', post, method: :delete, class: 'btn btn-danger' %></td>
+        <% else %>
+          <td></td>
+          <td></td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-<br>
-
-<% if logged_in? %>
-  <%= link_to 'Create New Post', new_post_path %>
-<% end %>

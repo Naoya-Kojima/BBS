@@ -1,15 +1,13 @@
 <%= form_for(post) do |f| %>
-  <div class="field">
-    <%= f.label :title %>
+  <div class="form-group">
+    <%= f.label :title %><br>
     <%= f.text_field :title, required:true %>
   </div>
 
-  <div class="field" >
-    <%= f.label :content %>
-    <%= f.text_area :content, :size => "25x5", required:true %>
+  <div class="form-group" >
+    <%= f.label :content %><br>
+    <%= f.text_area :content, class: "form-control", rows: "3", required:true %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
 <% end %>
