@@ -1,0 +1,7 @@
+= form_for([post, comment]) do |f|
+  .form-group
+    = f.label :content
+    br
+    = f.text_field :content, class: "form-control", rows: "3", required:true
+  button.btn.btn-primary[type="submit"]
+    | Submit

@@ -1,0 +1,43 @@
+.mb-3
+  h1
+    | Posts
+  - if logged_in?
+    = link_to "Create New Post", new_post_path, class: 'btn btn-primary'
+table.table.table-striped.table-bordered.table-hover
+  thead
+    tr
+      th
+        | title
+      th
+        | contents
+      th
+        | post user
+      th
+        | sex
+  tbody
+    - @posts.each do |post|
+      tr
+        td
+          = link_to "#{post.title}", post
+        td
+          = post.content
+        td
+          = post.user.name
+        - if post.user.male?
+          td
+            span.badge.badge-pill.badge-primary
+              = post.user.sex
+        - else
+          td
+            span.badge.badge-pill.badge-danger
+              = post.user.sex
+        td
+          = link_to 'Show', post, class: 'btn btn-primary'
+        - if post.is_posted_by_user?(current_user)
+          td
+            = link_to 'Edit', edit_post_path(post), class: 'btn btn-secondary'
+          td
+            = link_to 'Destroy', post, method: :delete, class: 'btn btn-danger'
+        - else
+          td
+          td

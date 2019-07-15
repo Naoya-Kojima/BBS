@@ -1,0 +1,24 @@
+= form_for(user) do |f|
+  .form-group
+    = f.label :name
+    br
+    = f.text_field :name, class: "form-control", required:true
+  .form-group
+    = f.label :email
+    br
+    = f.text_field :email, class: "form-control", required:true
+  .form-group
+    = f.label :password
+    br
+    = f.password_field :password, required:true
+  .form-group
+    = f.label :password_confirmation
+    br
+    = f.password_field :password_confirmation
+  .form-group
+    = f.label :sex, for: "exampleFormControlSelect1"
+    br
+    = f.select :sex, {male: 'male', female: 'female'}, {}, class: "form-control", required:true
+  .form-group
+    button.btn.btn-primary[type="submit"]
+      | Submit

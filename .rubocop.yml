@@ -12,6 +12,7 @@ AllCops:
     - db/**/*
     - config/**/*
     - lib/**/*
+    - node_modules/**/*
     - Gemfile
 
 # "Missing top-level class documentation comment."を無効

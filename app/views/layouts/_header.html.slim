@@ -1,0 +1,32 @@
+header.header
+  .container
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand[href="/"]
+        | BBS
+      button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"]
+        span.navbar-toggler-icon
+      #navbarNav.collapse.navbar-collapse
+        - if current_user
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              = link_to "Home", root_path, class: "nav-link"
+            li.nav-item
+              = link_to "Edit Profile", edit_user_path(current_user.id), class: "nav-link"
+            li.nav-item
+              = link_to "Logout", :logout, method: :post, class: "nav-link"
+            li.nav-item
+              = link_to "Users", users_path, class: "nav-link"
+            li.nav-item
+              = link_to "Posts", posts_path, class: "nav-link"
+          ul.navbar-nav
+            li.nav-item.mr-auto
+              = link_to "#{current_user.name}さんでログイン中", edit_user_path(current_user.id), class: "nav-link"
+        - else
+          ul.navbar-nav.mr-auto
+            li.nav-item
+              = link_to "Register", new_user_path, class: "nav-link"
+            li.nav-item
+              = link_to "Login", :login, class: "nav-link"
+            li.nav-item
+              = link_to "Posts", posts_path, class: "nav-link"
+  hr

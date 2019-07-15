@@ -1,0 +1,11 @@
+h3
+  | Edit Comment
+= form_for [@post, @comment] do |f|
+  .form-group
+    = f.label :content
+    br
+    = f.text_field :content, class: "form-control", required:true
+  .form-group
+    button.btn.btn-primary[type="submit"]
+      | Submit
+= link_to 'Back', @post, class: 'btn btn-primary btn-sm'

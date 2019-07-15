@@ -1,0 +1,27 @@
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | name
+        th
+          | email
+        th
+          | sex
+    tbody
+      tr
+        td
+          = @user.name
+        td
+          = @user.email
+        - if @user.male?
+          td
+            span.badge.badge-pill.badge-primary
+              = @user.sex
+        - else
+          td
+            span.badge.badge-pill.badge-danger
+              = @user.sex
+- if @user.is_created_by_user?(current_user)
+  = link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary btn-sm'
+= link_to 'Back', users_path, class: 'btn btn-primary btn-sm'

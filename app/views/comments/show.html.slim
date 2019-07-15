@@ -1,0 +1,16 @@
+- if @comment.user.present?
+  p
+    strong
+      | user:
+    = @comment.user.name
+  p
+    strong
+      | sex:
+    = @comment.user.sex
+p
+  strong
+    | comment:
+  = @comment.content
+= link_to 'Back', @post, class: 'btn btn-primary btn-sm'
+= link_to 'Edit', edit_post_comment_path(@comment.post, @comment), class: 'btn btn-primary btn-sm'
+= link_to 'Destroy', post_comment_path(@comment.post, @comment), method: :delete, class: 'btn btn-primary btn-sm'

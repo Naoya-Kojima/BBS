@@ -36,8 +36,11 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'sorcery'
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap-sass'
 gem 'jquery-rails'
+gem 'slim-rails'
+gem 'html2slim'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,6 +67,7 @@ group :development do
   gem 'rails_db'
   gem 'bullet'
   gem 'heavens_door'
+  gem 'rails-erd'
 end
 
 

@@ -62,4 +62,7 @@ build-iPhoneSimulator/
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore pdf.
+erd.pdf
+
 # End of https://www.gitignore.io/api/ruby
